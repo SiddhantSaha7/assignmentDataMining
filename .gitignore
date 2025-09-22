@@ -32,6 +32,12 @@ MANIFEST
 *.manifest
 *.spec
 
+#DS STORE for mac
+.DS_Store
+
+#large data file for question 3 ommitted
+ques3/AP_train.txt
+
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
