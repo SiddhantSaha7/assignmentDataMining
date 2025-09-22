@@ -18,8 +18,9 @@ arffData = []
 total_cols = 0
 
 for lines in datFile.readlines():
-    data = lines.strip().split()
-    data = [int(x) for x in data]
+    data = set(lines.strip().split())
+    data = list([int(x) for x in data])
+    data.sort()
     arffLine = "{"
     for col in data:
         arffLine += f"{col - 1} 1, "
