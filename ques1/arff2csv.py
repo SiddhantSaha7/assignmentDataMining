@@ -1,11 +1,15 @@
 import csv
 
+#openin the file and reading the lines
 f = open("1_weather-numeric.arff", 'r')
 lines = f.readlines()
+
+#storing the headers like @attribute in list as well as the main content in another list
 headers = []
 content = []
 fileName = ''
 
+#iterating over the arff file
 for l in lines:
     if l.startswith("@relation"):
         fileName = f" {l.split(' ')[1].strip()}.csv"
@@ -19,6 +23,7 @@ for l in lines:
     else:
         content.append(l.strip().split(','))
         
+# writing into the csv        
 with open(fileName, 'w') as csvfile:
     csvWriter = csv.writer(csvfile)
     csvWriter.writerow(headers)
