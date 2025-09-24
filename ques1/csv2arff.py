@@ -17,7 +17,11 @@ with open(csvFile, mode ='r')as file:
     csvReader = csv.DictReader(file)
     attributes = csvReader.fieldnames
     for line in csvReader:
-        content.append(list(line.values()))
+        content_line = list(line.values())
+        for i in range(len(content_line)):
+            if content_line[i]=='':
+                content_line[i] = '?'
+        content.append(content_line)
 
 # transpose of content to get all column values in a list
 transpose_content = list(zip(*content))
@@ -25,16 +29,17 @@ transpose_content = list(zip(*content))
 # iterating over all attributes to print attribute lines of an arff file
 for i in range(len(attributes)):
     output_string = "@attribute "+attributes[i] + " {"
-    attribute_vals = set()
+    attribute_vals = set(transpose_content[i])
+    attribute_sorted = list(attribute_vals)
+    attribute_sorted.sort()
     numeric = False
-    # getting unique values of each attribute to add to the line
-    for j in transpose_content[i]:
-        attribute_vals.add(j)
-    for j in attribute_vals:
+    for j in attribute_sorted:
         #checking if its a numeric column
         if j.isdigit():
             numeric = True
             break
+        elif j=='?':
+            continue
         else:
             output_string += j + ', '
 
@@ -47,6 +52,7 @@ for i in range(len(attributes)):
         output_string += "numeric"
     print(output_string)
 
+sys.exit()
 print("@data")
 
 #printing the data
