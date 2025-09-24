@@ -11,6 +11,7 @@ try:
 
 except:
     print("File not found!")
+    sys.exit(1)
 
 #creating the arff file
 arffFileName = fileName.split('.')[0]

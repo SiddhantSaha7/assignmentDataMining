@@ -2,8 +2,12 @@ import csv
 import sys
 
 # Reading csv file system arguement
-csvFile = sys.argv[1]
-
+try:
+    csvFile = sys.argv[1]
+    file = open(csvFile, 'r')
+except:
+    print("Error opening file, please check.")
+    sys.exit(1)
 # lists for storing the attributes, content of files and string for storing. filename
 attributes = []
 content = []
@@ -13,7 +17,7 @@ fileName = csvFile.split('.')[0]
 print("@relation "+fileName)
 
 # reading csv to store attributes and content
-with open(csvFile, mode ='r')as file:
+with file:
     csvReader = csv.DictReader(file)
     attributes = csvReader.fieldnames
     for line in csvReader:
@@ -41,7 +45,7 @@ for i in range(len(attributes)):
         elif j=='?':
             continue
         else:
-            output_string += j + ', '
+            output_string += j + ','
 
     #finalizing the attribute line for arff file and printing it        
     if numeric == False:
@@ -52,7 +56,6 @@ for i in range(len(attributes)):
         output_string += "numeric"
     print(output_string)
 
-sys.exit()
 print("@data")
 
 #printing the data
