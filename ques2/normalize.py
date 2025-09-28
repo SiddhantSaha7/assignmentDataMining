@@ -41,4 +41,5 @@ for row in data:
     data_normalized.append(arr_normalized)
 
 #printing the normalized data
-print(data_normalized)
+for i in data_normalized:
+    print(' '.join(i))
