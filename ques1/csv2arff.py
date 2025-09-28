@@ -4,9 +4,11 @@ import sys
 # Reading csv file system arguement
 try:
     csvFile = sys.argv[1]
+    if not csvFile.endswith('.csv'):
+        raise Exception("File is not csv!")
     file = open(csvFile, 'r')
-except:
-    print("Error opening file, please check.")
+except Exception as e:
+    print("Error opening file, please check. Error: " + repr(e))
     sys.exit(1)
 # lists for storing the attributes, content of files and string for storing. filename
 attributes = []
@@ -49,7 +51,7 @@ for i in range(len(attributes)):
 
     #finalizing the attribute line for arff file and printing it        
     if numeric == False:
-        output_string= output_string[:-2]
+        output_string= output_string[:-1]
         output_string+="}"
     else:
         output_string = output_string[:-1]
@@ -60,4 +62,4 @@ print("@data")
 
 #printing the data
 for i in content:
-    print(",".join(i)) 
+    print(",".join(i))
